@@ -1,0 +1,50 @@
+{
+  "name": "factis",
+  "version": "0.0.1",
+  "description": "A pure javascript triple-store, RDF store, graph database",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "coveralls": "gulp coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/crubier/factis.git"
+  },
+  "engines": {
+    "node": ">=0.10.0 ",
+    "npm": "~2.0.0"
+  },
+  "files": [
+    "index.js",
+    "package.json",
+    "readme.md",
+    "changelog.md"
+  ],
+  "keywords": [
+    "hexastore",
+    "rdf",
+    "graph",
+    "database",
+    "json",
+    "triple",
+    "triplestore",
+    "pure",
+    "js"
+  ],
+  "author": "Vincent Lecrubier <vincent.lecrubier@gmail.com> (http://www.vincentlecrubier.fr/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/crubier/factis/issues"
+  },
+  "homepage": "https://github.com/crubier/factis",
+  "dependencies": {
+    "node-uuid": "^1.4.2"
+  },
+  "devDependencies": {
+    "jest-cli": "^0.4.0"
+  },
+  "jest": {
+    "collectCoverage": true
+  }
+}
