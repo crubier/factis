@@ -9,7 +9,77 @@ function Hexastore() {
   this.ops = {};
 }
 
+// Add a single triple to the store
+Hexastore.prototype.add = function(element) {
+  var s = element[0];
+  var p = element[1];
+  var o = element[2];
+  var v = element[3] ? element[3] : true;
+  if (this.spo[s] === undefined) {
+    this.spo[s] = {};
+  }
+  if (this.spo[s][p] === undefined) {
+    this.spo[s][p] = {};
+  }
+  this.spo[s][p][o] = v;
+  if (this.sop[s] === undefined) {
+    this.sop[s] = {};
+  }
+  if (this.sop[s][o] === undefined) {
+    this.sop[s][o] = {};
+  }
+  this.sop[s][o][p] = v;
+  if (this.pso[p] === undefined) {
+    this.pso[p] = {};
+  }
+  if (this.pso[p][s] === undefined) {
+    this.pso[p][s] = this.spo[s][p];
+  }
+  if (this.pos[p] === undefined) {
+    this.pos[p] = {};
+  }
+  if (this.pos[p][o] === undefined) {
+    this.pos[p][o] = {};
+  }
+  this.pos[p][o][s] = v;
+  if (this.osp[o] === undefined) {
+    this.osp[o] = {};
+  }
+  if (this.osp[o][s] === undefined) {
+    this.osp[o][s] = this.sop[s][o];
+  }
+  if (this.ops[o] === undefined) {
+    this.ops[o] = {};
+  }
+  if (this.ops[o][p] === undefined) {
+    this.ops[o][p] = this.pos[p][o];
+  }
+};
 
+Hexastore.prototype.remove = function(element) {
+  var s = element[0];
+  var p = element[1];
+  var o = element[2];
+  var v = element[3] ? element[3] : true;
+  var subj = this.spo;
+  if (subj !== undefined) {
+    var pred = subj[s];
+    if (pred !== undefined) {
+      var obj = pred[p];
+      if (obj !== undefined) {
+        var val = obj[o];
+        if (val !== undefined) {
+          delete this.spo[s][p][o];
+          delete this.sop[s][o][p];
+          delete this.pso[p][s][o];
+          delete this.pos[p][o][s];
+          delete this.osp[o][s][p];
+          delete this.ops[o][p][s];
+        }
+      }
+    }
+  }
+};
 
 // Query the store for all facts with nothing specific (all facts)
 Hexastore.prototype.queryXXX = function(element) {
@@ -241,100 +311,6 @@ Hexastore.prototype.querySPO = function(element) {
 
 
 
-// Add a single triple to the store
-Hexastore.prototype.add = function(element) {
-  var s = element[0];
-  var p = element[1];
-  var o = element[2];
-  var v = element[3] ? element[3] : true;
-
-  if (this.spo[s] === undefined) {
-    this.spo[s] = {};
-  }
-  if (this.spo[s][p] === undefined) {
-    this.spo[s][p] = {};
-  }
-  this.spo[s][p][o] = v;
-
-  if (this.sop[s] === undefined) {
-    this.sop[s] = {};
-  }
-  if (this.sop[s][o] === undefined) {
-    this.sop[s][o] = {};
-  }
-  this.sop[s][o][p] = v;
-
-  if (this.pso[p] === undefined) {
-    this.pso[p] = {};
-  }
-  if (this.pso[p][s] === undefined) {
-    this.pso[p][s] = this.spo[s][p];
-  }
-  // this.pso[p][s][o] = v; // Not needed
-
-  if (this.pos[p] === undefined) {
-    this.pos[p] = {};
-  }
-  if (this.pos[p][o] === undefined) {
-    this.pos[p][o] = {};
-  }
-  this.pos[p][o][s] = v;
-
-  if (this.osp[o] === undefined) {
-    this.osp[o] = {};
-  }
-  if (this.osp[o][s] === undefined) {
-    this.osp[o][s] = this.sop[s][o];
-  }
-  // this.osp[o][s][p] = v; // Not needed
-
-  if (this.ops[o] === undefined) {
-    this.ops[o] = {};
-  }
-  if (this.ops[o][p] === undefined) {
-    this.ops[o][p] = this.pos[p][o];
-  }
-  // this.ops[o][p][s] = v; // Not needed
-  // this.dump();
-};
-
-
-
-Hexastore.prototype.remove = function(element) {
-  var s = element[0];
-  var p = element[1];
-  var o = element[2];
-  var v = element[3] ? element[3] : true;
-
-  var subj = this.spo;
-  if (subj !== undefined) {
-    var pred = subj[s];
-    if (pred !== undefined) {
-      var obj = pred[p];
-      if (obj !== undefined) {
-        var val = obj[o];
-        if (val !== undefined) {
-          delete this.spo[s][p][o];
-          delete this.sop[s][o][p];
-          delete this.pso[p][s][o];
-          delete this.pos[p][o][s];
-          delete this.osp[o][s][p];
-          delete this.ops[o][p][s];
-        }
-      }
-    }
-  }
-  // this.dump();
-};
-
-Hexastore.prototype.dump = function() {
-  console.log(JSON.stringify(this.spo));
-  console.log(JSON.stringify(this.sop));
-  console.log(JSON.stringify(this.ops));
-  console.log(JSON.stringify(this.osp));
-  console.log(JSON.stringify(this.pso));
-  console.log(JSON.stringify(this.pos));
-};
 
 
 // When you export a module, just make sure it has "query" functions working.

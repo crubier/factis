@@ -48,27 +48,27 @@ function createInstantiatedQuery(query, result) {
 }
 
 
-function factorial(n) {
-  if (n <= 0) {
-    return 1;
-  } else {
-    return n * factorial(n - 1);
-  }
-}
-
-
-
-function nthPermutation(atoms, index) {
-  var size = atoms.length;
-    var src = atoms.slice(), dest = [], item;
-    for (var i = 0; i < size; i++) {
-        item = index % src.length;
-        index = Math.floor(index / src.length);
-        dest.push(src[item]);
-        src.splice(item, 1);
-    }
-    return dest;
-}
+// function factorial(n) {
+//   if (n <= 0) {
+//     return 1;
+//   } else {
+//     return n * factorial(n - 1);
+//   }
+// }
+//
+//
+//
+// function nthPermutation(atoms, index) {
+//   var size = atoms.length;
+//     var src = atoms.slice(), dest = [], item;
+//     for (var i = 0; i < size; i++) {
+//         item = index % src.length;
+//         index = Math.floor(index / src.length);
+//         dest.push(src[item]);
+//         src.splice(item, 1);
+//     }
+//     return dest;
+// }
 
 // ar=["a","b","c","d"];
 // for (var i = 0; i < factorial(ar.length); i++) {

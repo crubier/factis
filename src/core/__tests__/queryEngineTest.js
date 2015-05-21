@@ -41,7 +41,7 @@ describe('Query Engine', function() {
 
     hexastore.mockImplementation(function() {
       return {
-        queryXXX:function(e){console.log("XXXXXXXX");return [["a","b","c"]];},
+        queryXXX:function(e){return [["a","b","c"]];},
         queryXXO:function(e){return [["a","b","c"]];},
         queryXPX:function(e){return [["a","b","c"]];},
         queryXPO:function(e){return [["a","b","c"]];},
@@ -58,7 +58,7 @@ describe('Query Engine', function() {
     expect(eng.query(api.fact(api.the("x"),api.the("y"),api.the("z")))).toEqual([{"x":"a","y":"b","z":"c"}]);
     // console.log(hexastore.mock.instances[0].queryXXX._protoImpl);
     // console.log(hexastore.mock.instances[0].queryXXX);
-    console.log(store);
+    // console.log(store);
   });
 
 
